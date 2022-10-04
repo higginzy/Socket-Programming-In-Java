@@ -10,7 +10,7 @@ import java.util.regex.*;
  * each function does before adding to it. You only need to add code 
  * wherever you see a '?'
  *
- * @author Giovani
+ * @author Zachary Higgins
  * 
  */
 public class FtpClient {
