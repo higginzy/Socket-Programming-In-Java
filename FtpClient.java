@@ -1,3 +1,7 @@
+/**
+*Assignment 1
+*Zachary Higgins
+**/
 package webserver;
 
 import java.io.*;
@@ -10,7 +14,7 @@ import java.util.regex.*;
  * each function does before adding to it. You only need to add code 
  * wherever you see a '?'
  *
- * @author Zachary Higgins
+ * @authorGiovani
  * 
  */
 public class FtpClient {
