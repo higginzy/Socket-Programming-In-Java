@@ -128,14 +128,6 @@ final class HttpRequest implements Runnable
 		socket.close();
 	}
 	
-	/*The variable, buffer, is our intermediate storage space for bytes on their way from
-	 the file to the output stream. When we read the bytes from the FileInputStream, we 
-	 check to see if read() returns minus one, indicating that the end of the file has 
-	 been reached. If the end of the file has not been reached, read() returns the number 
-	 of bytes that have been placed into buffer. We use the write() method of the
-	 OutputStream class to place these bytes into the output stream, passing to it the 
-	 name of the byte array, buffer, the starting point in the array, 0, and the number 
-	 of bytes in the array to write, bytes.*/
 	private static void sendBytes(FileInputStream fis, OutputStream os) throws Exception
 	{
 	   // Construct a 1K buffer to hold bytes on their way to the socket.
@@ -148,9 +140,6 @@ final class HttpRequest implements Runnable
 	   }
 	}
 	
-	/*The final piece of code needed to complete the Web server is a method that will examine
-	 the extension of a file name and return a string that represents it's MIME type. If
-	  the file extension is unknown, we return the type application/octet-stream.*/
 	private static String contentType(String fileName)
 	{
 		if(fileName.endsWith(".htm") || fileName.endsWith(".html")) {
