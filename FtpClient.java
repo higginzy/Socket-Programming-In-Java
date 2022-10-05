@@ -37,15 +37,16 @@ public class FtpClient {
     public void connect(String username, String password) {
         try {
             // establish the control socket
-            ?
+            controlSocket = new Socket(usernmane, password);
             // get references to the socket input and output streams
-            ?
+            controlReader = new BufferedReader(new InputStreamReader(controlSocket.getInputStream()));
+            controlWriter = new DataOutputStream(controlSocket.getOutputStream(), true);
             // check if the initial connection response code is OK
-            if (checkResponse(?)) {
+            if (checkResponse(200)) {
                 System.out.println("Succesfully connected to FTP server");
             }
             // send user name and password to ftp server
-            ?
+            sendCommand("ftp ftp://username:password@host.someschool.edu:6789/index.html", 200);
         } catch (UnknownHostException ex) {
             System.out.println("UnknownHostException: " + ex);
         } catch (IOException ex) {
@@ -60,17 +61,19 @@ public class FtpClient {
 int data_port = 0; // initialize the data port        
 try {
             // change to current (root) directory first
-            sendCommand(?);
+            sendCommand("cd ~", 200);
             // set to passive mode and retrieve the data port number from response
-            currentResponse = sendCommand(?);
-            data_port = ?;
+            currentResponse = sendCommand("Use PASV", 200);
+            data_port = extractDataPort(currentResponse);
             // connect to the data port 
-            Socket data_socket = ?
-            DataInputStream data_reader = ?
+            Socket data_socket = data_port;
+            DataInputStream data_reader = controlReader;
             // download file from ftp server
-            ?
+            sendCommand("get " + file_name, 200);
             // check if the transfer was succesful
-            ?
+            if (checkResponse(200)) {
+                System.out.println("File has been downloaded successfully.");
+            }
             // Write data on a local file
             createLocalFile(data_reader, file_name);
         } catch (UnknownHostException ex) {
